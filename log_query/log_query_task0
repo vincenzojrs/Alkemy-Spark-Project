@@ -1,0 +1,55 @@
+SELECT seller_id, product_id, COUNT(DISTINCT(comp_date))
+FROM prices
+GROUP BY seller_id, product_id
+# Questa query restituisce il numero di date in cui ogni venditore, per ogni prodotto aggiorna il suo prezzo
+
+SELECT DISTINCT(sale_date)
+FROM sales
+# Questa query restituisci i valori unici per colonna; quindi verifichiamo i valori in ciascuna colonna
+
+SELECT ((regular_price_tax/regular_price)-1)*100 AS regular_tax, ((sales_price_tax/sales_price)-1)*100 as sales_tax, (((regular_price_tax/regular_price)-1)*100 - ((sales_price_tax/sales_price)-1)*100) as difference_tax
+FROM sales
+#Questa query fa data cleaning sulle tasse
+
+
+SELECT revenues, total_purchase_price, revenues-total_purchase_price AS profits
+FROM(
+    SELECT
+        quantity*sales_price_tax AS revenues,
+        quantity*purchase_price AS total_purchase_price
+    FROM sales)
+# Questa query calcola fatturato, costo del venduto e profitti totali
+
+SELECT regular_price - sales_price AS price_difference
+FROM sales
+# Questa query indaga sulla scontistica e la relazione tra regular_price/sales_price
+
+SELECT COUNT(DISTINCT(sales.product_id)) FROM sales, catalog
+WHERE sales.product_id = catalog.product_id
+# Questa query verifica che tutti i prodotti venduti appartengono al catalogo e tutti i prodotti in catalogo vengono venduti
+
+SELECT comp_date, product_id, COUNT(DISTINCT(product_id))
+FROM prices
+GROUP BY comp_date, product_id
+# Questa query ci dice quanti prezzi sono listati per ogni giorno, per ogni prodotto
+
+
+SELECT DISTINCT(type)
+FROM concatenato
+WHERE position IS NULL
+# Questa query ci informa in quali dataset sono presenti valori position nulli
+
+SELECT c.date, c.seller, c.position, c.price_max, c.price_min, c.price, c.type, c.product_id, p.price
+FROM concatenato AS c
+LEFT JOIN prices AS p
+ON DATE(c.date) = p.comp_date
+AND c.seller = p.seller_id
+AND c.product_id = p.product_id
+WHERE c.price IS NULL AND p.price IS NOT NULL
+# Questa query consente di ricavare prezzi mancanti in concatenato sulla base di 3 chiavi comuni con il database prices
+
+SELECT DISTINCT(c.product_id)
+FROM concatenato AS c
+INTERSECT
+SELECT DISTINCT(cat.product_id)
+FROM catalog AS cat
