@@ -2,6 +2,10 @@
 # FILTERING FOR OBSERVATION IN 2021...AND DO WE NEED SOME OTHER FILTERS? CAN'T REMEMBER
 # PLEASE ADD ALSO A .TO_CSV TO OUTPUT THE FINAL CSV AND UPLOAD TO "data" FOLDER "final_csv_task1.csv"
 
+##########################################################################################
+
+# Run first the code to create the database, available in data/database_creation.py. Use that file, which is the most updated
+
 query = pd.read_sql("""
 WITH d AS (
   SELECT comp_date, product_id, MIN(price) AS min, MAX(price) AS max
