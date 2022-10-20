@@ -1,3 +1,7 @@
+# TO BE DONE: AFTER COMPLETED THE TASK AVAILABLE IN THE HEADER IN data/databse_creation.py, TRANSLATE THIS CODE IN PYSPARK AND UPDATE THIS FILE.
+# IF YOU CAN'T MANAGE TO FIND "PURE" PYSPARK COMMANDS TO CREATE TEMPORARY TABLES, OR ANY OTHER STRATEGY, USE THE PYSPARK.SQL IMPLEMENTATION, NO WORRIES
+# EXAMPLE. spark.sql("""SELECT * from df""").show(2)
+
 # Run first the code to create the database, available in data/database_creation.py. Use that file, which is the most updated
 
 query = pd.read_sql("""
